@@ -1,0 +1,7 @@
+test parsing.core.success.001
+
+description = "minimal parsing of a paragrpah succeed"
+
+exec = idris2
+
+params = "--no-banner -p india -p contrib TestParser.idr --exec myTest"

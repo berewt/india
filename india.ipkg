@@ -1,0 +1,24 @@
+package india
+
+version = 0.0.1
+
+authors = "Nicolas Biri <nicolas@biri.name>"
+
+sourceloc = "https://github.com/berewt/india"
+bugtracker = "https://github.com/berewt/india/issues"
+
+sourcedir = "src"
+
+depends = contrib
+
+modules = India
+
+        , India.Interpreter.AST
+
+        , India.Language.Core
+        , India.Language.Core.Lexer
+        , India.Language.Core.Parser
+        , India.Language.Core.Types
+
+        , India.Union
+        , India.Wrapper
