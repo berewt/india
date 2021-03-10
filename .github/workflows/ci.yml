@@ -10,9 +10,10 @@ jobs:
       image: snazzybucket/idris2
     steps:
       - uses: actions/checkout@v2
-      - name: typechecking
-        run: make check
-      - uses: actions/upload-artifact@v2
+      - name: Building india
+        run: make build
+      - name: Creating artifact
+        uses: actions/upload-artifact@v2
         with:
           name: india-pkg
           path: build/ttc
@@ -22,7 +23,7 @@ jobs:
     container:
       image: snazzybucket/idris2
     steps:
-      - name: Checkout replica
+      - name: Checking out replica
         uses: actions/checkout@v2
         with:
           repository: berewt/replica
@@ -40,8 +41,8 @@ jobs:
       IDRIS2_PACKAGE_PATH: $GITHUB_WORKSPACE/depends
     steps:
       - uses: actions/checkout@v2
-      - name: reinstall artifact
-      - uses: actions/download-artifact@v2
+      - name: reinstall india libs
+        uses: actions/download-artifact@v2
         with:
           name: india-pkg
           path: depends/india
