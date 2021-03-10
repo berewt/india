@@ -40,8 +40,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: snazzybucket/idris2
-    env:
-      IDRIS2_PACKAGE_PATH: $GITHUB_WORKSPACE/depends
     steps:
       - uses: actions/checkout@v2
       - name: reinstall india libs
@@ -54,6 +52,7 @@ jobs:
           name: replica-exe
           path: replica-exe
       - run: chmod -R 500 replica-exe
-      - run: echo $IDRIS2_PACKAGE_PATH
       - name: test
         run: replica-exe/replica tests
+        env:
+          IDRIS2_PACKAGE_PATH: $GITHUB_WORKSPACE/depends
