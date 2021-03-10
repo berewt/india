@@ -1,0 +1,13 @@
+name: ci
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: snazzybucket/idris2
+    steps:
+      - uses: actions/checkout@v2
+      - name: build and install
+        run: make install
