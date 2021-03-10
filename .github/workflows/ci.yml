@@ -54,7 +54,5 @@ jobs:
       - run: chmod -R 500 replica-exe
       - name: test
         run: |
-          echo $IDRIS2_PACKAGE_PATH
+          export IDRIS2_PACKAGE_PATH=$PWD/depends
           replica-exe/replica tests
-        env:
-          IDRIS2_PACKAGE_PATH: $GITHUB_WORKSPACE/depends
