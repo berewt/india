@@ -53,6 +53,6 @@ jobs:
         with:
           name: replica-exe
           path: replica-exe
-      - run: chmod 700 replica-exe/replica
+      - run: chmod -R 500 replica-exe
       - name: test
         run: replica-exe/replica tests
