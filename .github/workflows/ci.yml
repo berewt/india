@@ -40,14 +40,13 @@ jobs:
       IDRIS2_PACKAGE_PATH: $GITHUB_WORKSPACE/depends
     steps:
       - uses: actions/checkout@v2
-       - name: reinstall artifact
-       - uses: actions/download-artifact@v2
-           with:
-             name: india-pkg
-             path: depends/india
-       - uses: actions/download-artifact@v2
-           with:
-             name: replica-exe
+      - name: reinstall artifact
+      - uses: actions/download-artifact@v2
+         with:
+           name: india-pkg
+           path: depends/india
+      - uses: actions/download-artifact@v2
+         with:
+           name: replica-exe
       - name: test
         run: replica-exe/replica tests
-
