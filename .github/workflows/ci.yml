@@ -25,9 +25,9 @@ jobs:
       - name: Install replica
         run: |
           cd .replica
-          make install
+          make build
           cd ..
       - uses: actions/checkout@v2
       - name: build, install, and test
-        run: make test
+        run: .replica/build/exec/replica tests
 
