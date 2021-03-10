@@ -3,7 +3,8 @@ name: ci
 on: [push, workflow_dispatch]
 
 jobs:
-  check:
+
+  build:
     runs-on: ubuntu-latest
     container:
       image: snazzybucket/idris2
@@ -11,8 +12,12 @@ jobs:
       - uses: actions/checkout@v2
       - name: typechecking
         run: make check
-  test:
-    needs: check
+      - uses: actions/upload-artifact@v2
+        with:
+          name: india-pkg
+          path: build/ttc
+
+  replica:
     runs-on: ubuntu-latest
     container:
       image: snazzybucket/idris2
@@ -21,13 +26,28 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: berewt/replica
-          path: .replica
-      - name: Install replica
-        run: |
-          cd .replica
-          make build
-          cd ..
+      - uses: actions/upload-artifact@v2
+        with:
+          name: replica-exe
+          path: build/exec
+
+  test:
+    needs: [build, replica]
+    runs-on: ubuntu-latest
+    container:
+      image: snazzybucket/idris2
+    env:
+      IDRIS2_PACKAGE_PATH: $GITHUB_WORKSPACE/depends
+    steps:
       - uses: actions/checkout@v2
-      - name: build, install, and test
-        run: .replica/build/exec/replica tests
+       - name: reinstall artifact
+       - uses: actions/download-artifact@v2
+           with:
+             name: india-pkg
+             path: depends/india
+       - uses: actions/download-artifact@v2
+           with:
+             name: replica-exe
+      - name: test
+        run: replica-exe/replica tests
 
