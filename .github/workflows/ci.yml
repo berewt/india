@@ -52,5 +52,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: replica-exe
+          path: replica-exe
+      - run: ls -R replica-exe
       - name: test
         run: replica-exe/replica tests
