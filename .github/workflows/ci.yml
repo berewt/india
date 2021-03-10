@@ -53,6 +53,8 @@ jobs:
           path: replica-exe
       - run: chmod -R 500 replica-exe
       - name: test
-        run: replica-exe/replica tests
+        run: |
+          echo $IDRIS2_PACKAGE_PATH
+          replica-exe/replica tests
         env:
           IDRIS2_PACKAGE_PATH: $GITHUB_WORKSPACE/depends
