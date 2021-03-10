@@ -42,11 +42,11 @@ jobs:
       - uses: actions/checkout@v2
       - name: reinstall artifact
       - uses: actions/download-artifact@v2
-         with:
-           name: india-pkg
-           path: depends/india
+        with:
+          name: india-pkg
+          path: depends/india
       - uses: actions/download-artifact@v2
-         with:
-           name: replica-exe
+        with:
+          name: replica-exe
       - name: test
         run: replica-exe/replica tests
