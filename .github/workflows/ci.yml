@@ -3,11 +3,31 @@ name: ci
 on: [push, workflow_dispatch]
 
 jobs:
-  build:
+  check:
     runs-on: ubuntu-latest
     container:
       image: snazzybucket/idris2
     steps:
       - uses: actions/checkout@v2
-      - name: build and install
-        run: make install
+      - name: typechecking
+        run: make check
+  test:
+    needs: check
+    runs-on: ubuntu-latest
+    container:
+      image: snazzybucket/idris2
+    steps:
+      - name: Checkout replica
+        uses: actions/checkout@v2
+        with:
+          repository: berewt/replica
+          path: ../replica
+      - name: Install replica
+        run: |
+          pushd ../replica
+          make install
+          popd
+      - uses: actions/checkout@v2
+      - name: build, install, and test
+        run: make test
+
