@@ -24,9 +24,9 @@ jobs:
           path: .replica
       - name: Install replica
         run: |
-          pushd .replica
+          cd .replica
           make install
-          popd
+          cd ..
       - uses: actions/checkout@v2
       - name: build, install, and test
         run: make test
